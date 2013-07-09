@@ -6,6 +6,7 @@ Java library for creating database tables from Excel files
 Usage example: 
 
 1. Default settings
+
 public class LibraryTest {
     public static void main(String args[ ])
     {
@@ -23,6 +24,7 @@ public class LibraryTest {
 
 
 2. Settings with custom types for Excel cells
+
 public class LibraryTest {
     public static void main(String args[ ])
     {
