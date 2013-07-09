@@ -34,7 +34,7 @@ public class LibraryTest {
         String DB_TABLE_NAME = "table_test";
         ExcelToDB excelToDB = new ExcelToDB(DB_DRIVER, DB_CONNECTION, DB_USER, DB_PASSWORD, DB_TABLE_NAME);
         Map<Integer, String> annotation = new HashMap<Integer, String>();
-        //number of column abd it's type
+        //number of column and it's type
         annotation.put(6, "text");
         annotation.put(7, "text");
         excelToDB.start("D:\\Idea Projects\\librarytest\\test.xls", annotation);
