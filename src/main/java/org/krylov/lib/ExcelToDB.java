@@ -16,6 +16,17 @@ public class ExcelToDB {
     private List<LinkedHashMap> xlsData;
     private Map<Integer,Integer> columnLength;
 
+    public Map<Integer, String> getColumn_names() {
+        return column_names;
+    }
+
+    public void setColumn_names(Map<Integer, String> column_names) {
+        this.column_names = column_names;
+    }
+
+    private Map<Integer,String> column_names;
+
+
     private Properties dbconf = new Properties();
 
     public ExcelToDB(String db_driver, String db_conn, String db_user, String db_password, String tableName){
@@ -56,13 +67,23 @@ public class ExcelToDB {
         xlsData=readXls.getResult();
         columnLength=readXls.getColumnLength();
         InsertToDB insertToDB = new InsertToDB(dbconf, xlsData, columnLength);
+        if (getColumn_names()==null){
         insertToDB.start();
+        }
+        else {
+            insertToDB.start(getColumn_names());
+        }
     }
     public void start(String file, Map<Integer, String>annotations){
         ReadXls readXls = new ReadXls(file, annotations);
         xlsData=readXls.getResult();
         columnLength=readXls.getColumnLength();
         InsertToDB insertToDB = new InsertToDB(dbconf, xlsData, columnLength);
-        insertToDB.start();
+        if (getColumn_names()==null){
+            insertToDB.start();
+        }
+        else {
+            insertToDB.start(getColumn_names());
+        }
     }
 }
