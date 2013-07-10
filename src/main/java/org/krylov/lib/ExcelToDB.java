@@ -19,7 +19,21 @@ public class ExcelToDB {
     public Map<Integer, String> getColumn_names() {
         return column_names;
     }
-
+    /**
+     * <p>Set names for the table columns</p>
+     *
+     *                     For example
+     *
+     * <p>ExcelToDB excelToDB = new ExcelToDB(DB_DRIVER, DB_CONNECTION, DB_USER, DB_PASSWORD, DB_TABLE_NAME); <br>
+     * Map<Integer, String> column_names = new HashMap<Integer, String>(); <br>
+     * column_names.put(1, "testname1");<br>
+     * excelToDB.setColumn_names(column_names);<br>
+     *
+     * will set first column of database table to "testname1" <br>
+     * </p>
+     *
+     * @return void
+     */
     public void setColumn_names(Map<Integer, String> column_names) {
         this.column_names = column_names;
     }
@@ -29,6 +43,16 @@ public class ExcelToDB {
 
     private Properties dbconf = new Properties();
 
+    /**
+     * <p>Set values that are necessary for db connection</p>
+     *
+     * @param db_driver Driver for the database (for example "com.mysql.jdbc.Driver")
+     * @param db_conn The connection to the database (for example "jdbc:mysql://localhost:3306/exltodb")
+     * @param db_user   The username for the database
+     * @param db_password   The password to the database
+     * @param tableName The name for a table that should be created.
+     * @return void
+     */
     public ExcelToDB(String db_driver, String db_conn, String db_user, String db_password, String tableName){
         setDriver(db_driver);
         setConnection(db_conn);
@@ -37,7 +61,7 @@ public class ExcelToDB {
         setTableName(tableName);
     }
 
-    //Name of the used driver
+
      public void setDriver (String myDriver){
           dbconf.put("Driver", myDriver);
      }
@@ -61,7 +85,14 @@ public class ExcelToDB {
     public void setTableName (String tableName){
         dbconf.put("TableName", tableName);
     }
-    //start to parce Excel and insert to db
+
+    /**
+    * <p>Start to parse the file</p>
+    *
+    * @param file Full path to the file for parsing
+    *
+    * @return void
+    */
     public void start(String file){
         ReadXls readXls = new ReadXls(file);
         xlsData=readXls.getResult();
@@ -74,6 +105,20 @@ public class ExcelToDB {
             insertToDB.start(getColumn_names());
         }
     }
+    /**
+     * <p>Start to parse the file</p>
+     *
+     * @param file Full path to the file for parsing
+     * @param annotations Map that is used for setting type of parsed Excel column.
+     *                    For example
+     *                    <p>Map<Integer, String> annotation = new HashMap<Integer, String>(); <br>
+     * annotation.put(6, "text");<br>
+     * annotation.put(7, "numeric");<br>
+     * annotation.put(2, "date");</p>
+     *                    will set sixth column as String, seventh - as Double and second to Date
+     *
+     * @return void
+     */
     public void start(String file, Map<Integer, String>annotations){
         ReadXls readXls = new ReadXls(file, annotations);
         xlsData=readXls.getResult();
