@@ -11,14 +11,13 @@ import java.util.*;
  */
 class  CreateTableHeader {
     private Map<Integer,Integer> columnLength = new HashMap<Integer, Integer>();
-    private List<LinkedHashMap> xlsData;
-    private List<String> query = new ArrayList<String>();
+    private final List<LinkedHashMap> xlsData;
 
     public List<String> getHeaderNames() {
         return headerNames;
     }
 
-    private List<String> headerNames = new ArrayList<String>();
+    private final List<String> headerNames = new ArrayList<String>();
 
 
     public CreateTableHeader(List<LinkedHashMap> xlsData, Map<Integer,Integer> columnLength){
@@ -28,16 +27,16 @@ class  CreateTableHeader {
     }
 
     public Integer getColumsCount(){
-        int count = headerNames.size();
-        return count;
+
+        return headerNames.size();
     }
 
     public String getHeaderString(Map<Integer, String> column_names){
-        String result=null;
+        String result;
         List<String> dataTypes = new ArrayList<String>();
         boolean datatypes_found=false;
         for (int i=0; i <xlsData.size();i++){
-            if (datatypes_found==true){
+            if (datatypes_found){
                 break;
             }
             LinkedHashMap iterMap=xlsData.get(i);
@@ -45,7 +44,7 @@ class  CreateTableHeader {
             if (i==0){
                 for (int x=0; x <iterMap.size();x++){
                     if (column_names.containsKey(x)){
-                        headerNames.add(x,column_names.get(x).toString());
+                        headerNames.add(x,column_names.get(x));
                     } else {
                     headerNames.add(x,iterMap.get(x).toString());
                     }
@@ -54,10 +53,7 @@ class  CreateTableHeader {
             //getting datatypes for first database row
             else {
                 for (int y=0; y <iterMap.size();y++){
-                    if (iterMap.containsValue(null)){
-
-                    }
-                    else{
+                    if (!iterMap.containsValue(null)){
                         for (int x=0; x <iterMap.size();x++){
                             if (iterMap.get(x).getClass().getCanonicalName()=="java.lang.String"){
                                 dataTypes.add(x, "VARCHAR");
@@ -86,11 +82,11 @@ class  CreateTableHeader {
 
 
     public String getHeaderString(){
-        String result=null;
+        String result;
         List<String> dataTypes = new ArrayList<String>();
         boolean datatypes_found=false;
         for (int i=0; i <xlsData.size();i++){
-            if (datatypes_found==true){
+            if (datatypes_found){
                 break;
             }
             LinkedHashMap iterMap=xlsData.get(i);
@@ -103,10 +99,7 @@ class  CreateTableHeader {
             //getting datatypes for first database row
             else {
                 for (int y=0; y <iterMap.size();y++){
-                    if (iterMap.containsValue(null)){
-
-                    }
-                    else{
+                    if (!iterMap.containsValue(null)){
                         for (int x=0; x <iterMap.size();x++){
                             if (iterMap.get(x).getClass().getCanonicalName()=="java.lang.String"){
                                 dataTypes.add(x, "VARCHAR");

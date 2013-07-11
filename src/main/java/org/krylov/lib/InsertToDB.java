@@ -20,8 +20,8 @@ import java.util.Properties;
     private static String DB_USER; //= "user";
     private static String DB_PASSWORD;// = "password";
     private static String DB_TABLE_NAME;
-    List<LinkedHashMap> xlsData;
-    Map<Integer,Integer> columnLength;
+    private final List<LinkedHashMap> xlsData;
+    private final Map<Integer,Integer> columnLength;
 
     public InsertToDB(Properties dbconf, List<LinkedHashMap> xlsData, Map<Integer,Integer> columnLength){
 
@@ -46,7 +46,7 @@ import java.util.Properties;
         }
 
         System.out.println("JDBC Driver Registered!");
-        Connection connection = null;
+        Connection connection;
 
         try {
             connection = DriverManager
@@ -133,7 +133,7 @@ import java.util.Properties;
         }
 
         System.out.println("JDBC Driver Registered!");
-        Connection connection = null;
+        Connection connection;
 
         try {
             connection = DriverManager
